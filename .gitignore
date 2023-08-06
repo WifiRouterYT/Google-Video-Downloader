@@ -1,0 +1,3 @@
+metaunsorted.txt
+output/*
+!output/downloaded_files_go_here!.txt
