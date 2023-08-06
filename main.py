@@ -17,7 +17,7 @@ TOTAL_DOWNLOAD_TRAFFIC = 0
 FAILED_DOWNLOADS = 0
 
 # config
-NUM_VIDEOS_TO_DOWNLOAD = 20000
+NUM_VIDEOS_TO_DOWNLOAD = 20000  # Downloads in chronological order, recommended between 100 - 500 unless you have a lot of storage.
 # end config
 
 def download_file(url, output_file_path):
