@@ -5,3 +5,8 @@ example input/designed to work with:
 https://mega.nz/file/mY43xC6a#C8sQLTrt1HJqGVBd6ifcwYNhfss8rUEU-DTMPju3uUs
 
 has chatgpt as fallback because i suck at regex 👍
+
+required packages:
+`requests`, `g4f`, `rich`, `moviepy`, `regex`
+
+tested on python 3.11
