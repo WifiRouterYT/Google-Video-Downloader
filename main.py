@@ -97,7 +97,7 @@ def processVideo(raw_data):
     except OSError:
         print("[steel_blue1]Failed to programatically process input. Attempting to send through ChatGPT (L1)")
         try:
-            response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.GetGpt, messages=[{"role": "user", "content": "Extract the metadata from the string provided. Return the text as a python list, e.g. \"['value1', 'value2', 'value3']\". Do not explain anything, just output the python list. First string of numbers is the ID. \"gvibirID\" is the video title. \"gvibirDESC\" is the video description. \"gvibirLEN\" is the length of the video. It is sometimes empty, or not stated. In the case that it is, simply do not add that value to the output python list. Do not try to substitute the length of the video with another value, just ignore it if it is empty. \"gvibirDATE\" is the date uploaded. It contains a string of numbers, and a string of text separated by a comma. These should be all one value. \"gvibirPIC\" is the thumbnail URL. \"gvibirURL\" is the video url. Remove any escape characters if found. Write the response in a code box. Do not include the variable name. Use double quotes instead of single quotes to wrap the list values, and escape any double quotes that appear in the data. Input string: " + data}])
+            response = g4f.ChatCompletion.create(model='gpt-3.5-turbo', provider=g4f.Provider.Ails, messages=[{"role": "user", "content": "Extract the metadata from the string provided. Return the text as a python list, e.g. \"['value1', 'value2', 'value3']\". Do not explain anything, just output the python list. First string of numbers is the ID. \"gvibirID\" is the video title. \"gvibirDESC\" is the video description. \"gvibirLEN\" is the length of the video. It is sometimes empty, or not stated. In the case that it is, simply do not add that value to the output python list. Do not try to substitute the length of the video with another value, just ignore it if it is empty. \"gvibirDATE\" is the date uploaded. It contains a string of numbers, and a string of text separated by a comma. These should be all one value. \"gvibirPIC\" is the thumbnail URL. \"gvibirURL\" is the video url. Remove any escape characters if found. Write the response in a code box. Do not include the variable name. Use double quotes instead of single quotes to wrap the list values, and escape any double quotes that appear in the data. Input string: " + data}])
         except Exception as e:
             print(e)
             print("[red1]Failed to process video " + raw_data[0] + ". Skipping.")
@@ -107,6 +107,7 @@ def processVideo(raw_data):
         except SyntaxError:
             print("[red1]Failed to process video " + raw_data[0] + ". This is likely because ChatGPT gave a wrong answer. The folder has been deleted and on the next run, it should try again. For debugging purposes, the response has been printed.")
             print(response)
+            print(e)
             return False
         os.makedirs(os.path.join(OUTPUT_DIR, raw_data[0]), False)
     success = download_file(raw_data[-1], os.path.join(os.path.join(OUTPUT_DIR, raw_data[0]), os.path.basename("videoplayback") + ".flv"))
@@ -184,4 +185,4 @@ if __name__ == "__main__":
         for entry in entries:
             if entry.is_dir():
                 count += 1
-    print("[spring_green2]Download complete.[/spring_green2] [grey39]" + str(NUM_VIDEOS_TO_DOWNLOAD - FAILED_DOWNLOADS) + " videos failed to download.")
+    print("[spring_green2]Download complete.[/spring_green2] [grey39]" + str(NUM_VIDEOS_TO_DOWNLOAD - count) + " videos failed to download.")
